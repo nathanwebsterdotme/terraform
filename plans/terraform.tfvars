@@ -31,3 +31,10 @@ vpc_subnet_private_b = {
   cidr_block = "10.0.12.0/24"
   "az"          = "eu-west-1b"
 }
+
+
+### ROUTE TABLES ###
+
+route_table_public_name = "rt_public"
+route_table_private_a_name = "rt_private_a"
+route_table_private_b_name = "rt_private_b"

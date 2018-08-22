@@ -26,3 +26,10 @@ variable "vpc_subnet_private_b" {
   type    = "map"
   default = { }
 }
+
+
+### ROUTE TABLES ###
+
+variable "route_table_public_name" { }
+variable "route_table_private_a_name" { }
+variable "route_table_private_b_name" { }

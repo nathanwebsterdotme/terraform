@@ -9,40 +9,69 @@ module "vpc" {
 ### SUBNETS ###
 
 module "vpc_subnet_public_a" {
-  vpc_name          = "${var.vpc_name}"
   source            = "../modules/vpc_subnet"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
   availability_zone = "${lookup(var.vpc_subnet_public_a, "az")}"
   cidr_block        = "${lookup(var.vpc_subnet_public_a, "cidr_block")}"
   subnet_name       = "${lookup(var.vpc_subnet_public_a, "subnet_name")}"
-  vpc_id            = "${module.vpc.vpc_id_output}"
+
 }
 
 module "vpc_subnet_public_b" {
-  vpc_name          = "${var.vpc_name}"
   source            = "../modules/vpc_subnet"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
   availability_zone = "${lookup(var.vpc_subnet_public_b, "az")}"
   cidr_block        = "${lookup(var.vpc_subnet_public_b, "cidr_block")}"
   subnet_name       = "${lookup(var.vpc_subnet_public_b, "subnet_name")}"
-  vpc_id            = "${module.vpc.vpc_id_output}"
 }
 
 module "vpc_subnet_private_a" {
-  vpc_name          = "${var.vpc_name}"
   source            = "../modules/vpc_subnet"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
   availability_zone = "${lookup(var.vpc_subnet_private_a, "az")}"
   cidr_block        = "${lookup(var.vpc_subnet_private_a, "cidr_block")}"
   subnet_name       = "${lookup(var.vpc_subnet_private_a, "subnet_name")}"
-  vpc_id            = "${module.vpc.vpc_id_output}"
 }
 
 module "vpc_subnet_private_b" {
-  vpc_name          = "${var.vpc_name}"
   source            = "../modules/vpc_subnet"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
   availability_zone = "${lookup(var.vpc_subnet_private_b, "az")}"
   cidr_block        = "${lookup(var.vpc_subnet_private_b, "cidr_block")}"
   subnet_name       = "${lookup(var.vpc_subnet_private_b, "subnet_name")}"
-  vpc_id            = "${module.vpc.vpc_id_output}"
 }
 
 
 ### ROUTE TABLES ###
+
+module "route_table_public" {
+  source            = "../modules/vpc_route_table"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
+  route_table_name  = "${var.route_table_public_name}"
+}
+
+module "route_table_private_a" {
+  source            = "../modules/vpc_route_table"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
+  route_table_name  = "${var.route_table_private_a_name}"
+}
+
+module "route_table_private_b" {
+  source            = "../modules/vpc_route_table"
+
+  vpc_name          = "${var.vpc_name}"
+  vpc_id            = "${module.vpc.vpc_id_output}"
+  route_table_name  = "${var.route_table_private_b_name}"
+}
