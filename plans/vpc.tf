@@ -75,3 +75,32 @@ module "route_table_private_b" {
   vpc_id            = "${module.vpc.vpc_id_output}"
   route_table_name  = "${var.route_table_private_b_name}"
 }
+
+
+module "route_table_association_public_a" {
+  source            = "../modules/vpc_route_table_association"
+
+  subnet_id         = "${module.vpc_subnet_public_a.subnet_id_output}"
+  route_table_id    = "${module.route_table_public.route_table_id}"
+}
+
+module "route_table_association_public_b" {
+  source            = "../modules/vpc_route_table_association"
+
+  subnet_id         = "${module.vpc_subnet_public_b.subnet_id_output}"
+  route_table_id    = "${module.route_table_public.route_table_id}"
+}
+
+module "route_table_association_private_a" {
+  source            = "../modules/vpc_route_table_association"
+
+  subnet_id         = "${module.vpc_subnet_private_a.subnet_id_output}"
+  route_table_id    = "${module.route_table_private_a.route_table_id}"
+}
+
+module "route_table_association_private_b" {
+  source            = "../modules/vpc_route_table_association"
+
+  subnet_id         = "${module.vpc_subnet_private_b.subnet_id_output}"
+  route_table_id    = "${module.route_table_private_b.route_table_id}"
+}
