@@ -1,6 +1,6 @@
 
 module "vpc" {
-  source            = "../modules/vpc"
+  source            = "../../modules/vpc"
   vpc_name          = "${var.vpc_name}"
   vpc_cidr_block    = "${var.vpc_cidr_block}"
 }
@@ -9,7 +9,7 @@ module "vpc" {
 ### SUBNETS ###
 
 module "vpc_subnet_public_a" {
-  source            = "../modules/vpc_subnet"
+  source            = "../../modules/vpc_subnet"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -20,7 +20,7 @@ module "vpc_subnet_public_a" {
 }
 
 module "vpc_subnet_public_b" {
-  source            = "../modules/vpc_subnet"
+  source            = "../../modules/vpc_subnet"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -30,7 +30,7 @@ module "vpc_subnet_public_b" {
 }
 
 module "vpc_subnet_private_a" {
-  source            = "../modules/vpc_subnet"
+  source            = "../../modules/vpc_subnet"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -40,7 +40,7 @@ module "vpc_subnet_private_a" {
 }
 
 module "vpc_subnet_private_b" {
-  source            = "../modules/vpc_subnet"
+  source            = "../../modules/vpc_subnet"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -53,7 +53,7 @@ module "vpc_subnet_private_b" {
 ### ROUTE TABLES ###
 
 module "route_table_public" {
-  source            = "../modules/vpc_route_table"
+  source            = "../../modules/vpc_route_table"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -61,7 +61,7 @@ module "route_table_public" {
 }
 
 module "route_table_private_a" {
-  source            = "../modules/vpc_route_table"
+  source            = "../../modules/vpc_route_table"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -69,7 +69,7 @@ module "route_table_private_a" {
 }
 
 module "route_table_private_b" {
-  source            = "../modules/vpc_route_table"
+  source            = "../../modules/vpc_route_table"
 
   vpc_name          = "${var.vpc_name}"
   vpc_id            = "${module.vpc.vpc_id_output}"
@@ -78,28 +78,28 @@ module "route_table_private_b" {
 
 
 module "route_table_association_public_a" {
-  source            = "../modules/vpc_route_table_association"
+  source            = "../../modules/vpc_route_table_association"
 
   subnet_id         = "${module.vpc_subnet_public_a.subnet_id_output}"
   route_table_id    = "${module.route_table_public.route_table_id}"
 }
 
 module "route_table_association_public_b" {
-  source            = "../modules/vpc_route_table_association"
+  source            = "../../modules/vpc_route_table_association"
 
   subnet_id         = "${module.vpc_subnet_public_b.subnet_id_output}"
   route_table_id    = "${module.route_table_public.route_table_id}"
 }
 
 module "route_table_association_private_a" {
-  source            = "../modules/vpc_route_table_association"
+  source            = "../../modules/vpc_route_table_association"
 
   subnet_id         = "${module.vpc_subnet_private_a.subnet_id_output}"
   route_table_id    = "${module.route_table_private_a.route_table_id}"
 }
 
 module "route_table_association_private_b" {
-  source            = "../modules/vpc_route_table_association"
+  source            = "../../modules/vpc_route_table_association"
 
   subnet_id         = "${module.vpc_subnet_private_b.subnet_id_output}"
   route_table_id    = "${module.route_table_private_b.route_table_id}"
