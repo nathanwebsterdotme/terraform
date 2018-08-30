@@ -14,7 +14,6 @@ module "vpc" {
   vpc_cidr_block    = "${var.vpc_cidr_block}"
 }
 
-
 ### SUBNETS ###
 
 module "vpc_subnet_public_a" {
@@ -142,3 +141,30 @@ module "route_table_association_private_b" {
 
 
 ### ROUTES ###
+
+module "route_public_internet" {
+  source            = "../../modules/vpc_route"
+
+  route_table_id          = "${module.route_table_public.route_table_id}"
+  destination_cidr_block  = "0.0.0.0/0"
+  gateway_id              = "${module.vpc.vpc_igw_id}"
+  nat_gateway_id          = ""
+}
+
+module "route_private_a_internet" {
+  source            = "../../modules/vpc_route"
+
+  route_table_id          = "${module.route_table_private_a.route_table_id}"
+  destination_cidr_block  = "0.0.0.0/0"
+  gateway_id              = ""
+  nat_gateway_id          = "${module.nat_gateway_a.id}"
+}
+
+module "route_private_b_internet" {
+  source            = "../../modules/vpc_route"
+
+  route_table_id          = "${module.route_table_private_b.route_table_id}"
+  destination_cidr_block  = "0.0.0.0/0"
+  gateway_id              = ""
+  nat_gateway_id          = "${module.nat_gateway_b.id}"
+}
